@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 
 dotenv.config();
 
@@ -96,7 +97,7 @@ app.get('/transform-data', async (req, res) => {
             // Create a hash of the UUID
             const hash = crypto.createHash('sha256').update(uuid).digest('hex');
             // Return the item with the new hashed field
-            return { ...item, hashedUuid: `Hashed UUID-${hash}` };
+            return { ...item, hashedUuid: `${hash}` };
         });
 
         res.json(data);
